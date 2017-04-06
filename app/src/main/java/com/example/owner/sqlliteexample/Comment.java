@@ -11,6 +11,7 @@ public class Comment {
     //Private data members
     private long id;
     private String comment;
+    private String rating;
 
 
     /**
@@ -46,10 +47,26 @@ public class Comment {
         this.comment = comment;
     }
 
+    /**
+     * Returns the value stored in rating
+     * @return
+     */
+    public String getRating()
+    {
+        return rating;
+    }
+
+    /**
+     * Parameter taken in is used to set rating variable.
+     * @param rating
+     */
+    public void setRating(String rating){this.rating = rating;}
+
     // Will be used by the ArrayAdapter in the ListView
     @Override
-    public String toString() {
-        return comment;
+    public String toString()
+    {
+        return comment + rating;
     }
 }
 

@@ -43,9 +43,10 @@ public class CommentsDataSource {
      * @param comment - String value passed is used to specify comment to be put in.
      * @return - Returns instance of Comment
      */
-    public Comment createComment(String comment) {
+    public Comment createComment(String comment, String rating) {
         ContentValues values = new ContentValues();
         values.put(MySQLiteHelper.COLUMN_COMMENT, comment);
+        values.put(MySQLiteHelper.COLUMN_RATING, rating);
         long insertId = database.insert(MySQLiteHelper.TABLE_COMMENTS, null,
                 values);
 
@@ -54,8 +55,7 @@ public class CommentsDataSource {
          * columns - list of which columns to return. Here this is specified by insertId
          */
         Cursor cursor = database.query(MySQLiteHelper.TABLE_COMMENTS,
-                allColumns, MySQLiteHelper.COLUMN_ID + " = " + insertId, null,
-                null, null, null);
+                null, null, null, null, null, null);
         cursor.moveToFirst();
         Comment newComment = cursorToComment(cursor);
         cursor.close();
@@ -92,7 +92,7 @@ public class CommentsDataSource {
          * Here, allColumns will be returned.
          */
         Cursor cursor = database.query(MySQLiteHelper.TABLE_COMMENTS,
-                allColumns, null, null, null, null, null);
+                null, null, null, null, null, null);
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
@@ -109,6 +109,7 @@ public class CommentsDataSource {
         Comment comment = new Comment();
         comment.setId(cursor.getLong(0));
         comment.setComment(cursor.getString(1));
+        comment.setRating(cursor.getString( cursor.getColumnIndex( MySQLiteHelper.COLUMN_RATING) ));
         return comment;
     }
 }

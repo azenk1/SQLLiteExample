@@ -12,9 +12,15 @@ import android.app.ListActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 
 public class TestDatabaseActivity extends ListActivity {
+
     private CommentsDataSource datasource;
+
+    //EditText declaration to access value entered for rating
+    EditText ratingET;
+    String rating;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -23,6 +29,10 @@ public class TestDatabaseActivity extends ListActivity {
 
         //Here, a new DAO is created to access data from other classes.
         datasource = new CommentsDataSource(this);
+
+
+
+        ratingET = (EditText)findViewById(R.id.ratingET);
 
         //The DAO is opened with this statement.
         datasource.open();
@@ -40,10 +50,13 @@ public class TestDatabaseActivity extends ListActivity {
     // Will be called via the onClick attribute
     // of the buttons in main.xml
     public void onClick(View view) {
+
         @SuppressWarnings("unchecked")
         ArrayAdapter<Comment> adapter = (ArrayAdapter<Comment>) getListAdapter();
         Comment comment = null;
 
+        //assign string value from rating EditText to rating String.
+        rating = ratingET.getText().toString();
         //Switch statement to respond to specific button presses using their resource id values.
         switch (view.getId()) {
 
@@ -53,8 +66,11 @@ public class TestDatabaseActivity extends ListActivity {
                 //Randomly selects strings from array comments
                 String[] comments = new String[] { "Cool", "Very nice", "Hate it" };
                 int nextInt = new Random().nextInt(3);
+
+
+
                 // save the new comment to the database
-                comment = datasource.createComment(comments[nextInt]);
+                comment = datasource.createComment(comments[nextInt], rating);
                 adapter.add(comment);
                 break;
 

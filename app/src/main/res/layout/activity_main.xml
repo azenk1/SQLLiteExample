@@ -9,6 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" >
 
+
         <Button
             android:id="@+id/add"
             android:layout_width="wrap_content"
@@ -23,8 +24,18 @@
             android:text="Delete First"
             android:onClick="onClick"/>
 
+
     </LinearLayout>
 
+    <TextView
+        android:text="Enter Rating: "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:id="@+id/ratingET"
+        android:inputType="text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
     <ListView
         android:id="@android:id/list"
         android:layout_width="match_parent"

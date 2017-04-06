@@ -1,7 +1,10 @@
 package com.example.owner.sqlliteexample;
 
 /**
- * Created by Owner on 4/3/2017.
+ * Class: MySQLiteHelper is a subclass of SQLiteOpenHelper. The focus of this class is to create
+ * and upgrade a database to be used in this application.
+ * Edited By: Al Zenk
+ * 04/03/2017
  */
 
 import android.content.Context;
@@ -9,12 +12,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-/**
- * Class: MySQLiteHelper is a subclass of SQLiteOpenHelper. The focus of this class is to create
- * and upgrade a database to be used in this application.
- * Edited By: Al Zenk
- * 04/03/2017
- */
+
 public class MySQLiteHelper extends  SQLiteOpenHelper{
 
 
@@ -29,6 +27,8 @@ public class MySQLiteHelper extends  SQLiteOpenHelper{
     //Integer used to represent the version of the database schema being used.
     public static final int DATABASE_VERSION = 1;
 
+    //Constant for column rating
+    public static final String COLUMN_RATING = "rating";
 
     /**Example of standard SQL create table command
     CREATE TABLE table_name(
@@ -44,16 +44,17 @@ public class MySQLiteHelper extends  SQLiteOpenHelper{
     public static final String DATABASE_CREATE = "create table "
             + TABLE_COMMENTS + "( " + COLUMN_ID
             + " integer primary key autoincrement, " +
-            COLUMN_COMMENT + " text not null);";
+            COLUMN_COMMENT + " text not null);" + COLUMN_RATING;
 
 
     public MySQLiteHelper(Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        super(context, DATABASE_NAME, null, DATABASE_VERSION + 1);
     }
 
     @Override
     public void onCreate(SQLiteDatabase database) {
         database.execSQL(DATABASE_CREATE);
+
     }
 
     @Override
